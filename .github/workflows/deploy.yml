@@ -1,16 +1,27 @@
-name: Calculator App CI/CD
+name: EC2 deployement
 
-on:
+on: 
   push:
     branches:
-      - staging
-  release:
-    types: [created]
-
+      - main
+  
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    
+    steps: 
+    - name: checking-out code
+      uses: actions/checkout@v4
+      
+    - name: looking into the runner machine
+      run: ls
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: executing remote ssh commands using key
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        port: 22
+        script: |
+           whoami
