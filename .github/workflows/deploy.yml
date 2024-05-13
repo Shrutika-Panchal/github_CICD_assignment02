@@ -42,9 +42,9 @@ jobs:
           port: 22
           script: |
             # Replace 'your-flask-app-directory' with the directory containing your Flask app
-            cd your-flask-app-directory
+            cd flask.py
             # Restart the Flask app (replace 'app.py' with your actual app file)
-            sudo systemctl restart your-flask-app.service
+            sudo systemctl restart flask.py
             echo "Deployed to Staging"
 
   deploy_production:
@@ -62,7 +62,7 @@ jobs:
           port: 22
           script: |
             # Replace 'your-flask-app-directory' with the directory containing your Flask app
-            cd your-flask-app-directory
+            cd flask.py
             # Restart the Flask app (replace 'app.py' with your actual app file)
-            sudo systemctl restart your-flask-app.service
+            sudo systemctl restart flask.py
             echo "Deployed to Production"
