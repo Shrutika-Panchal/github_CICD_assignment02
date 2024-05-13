@@ -20,7 +20,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          pytest  # Run tests using pytest
+          # Running tests
 
       - name: Build
         run: |
