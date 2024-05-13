@@ -4,28 +4,31 @@ on:
   push:
     branches:
       - staging
+  release:
+    types: [created]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install Dependencies
-      run: |
-        pip install -r requirements.txt
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
         working-directory: ./calculator
 
-    - name: Run Tests
-      run: |
-        pytest
+      - name: Run Tests
+        run: |
+          pytest
         working-directory: ./calculator
 
-    - name: Build
-      run: |
-          echo "Building Application"
+      - name: Build
+        run: |
+          # Add build steps if necessary
+          echo "Build steps..."
 
   deploy_staging:
     runs-on: ubuntu-latest
@@ -33,15 +36,10 @@ jobs:
     if: github.ref == 'refs/heads/staging'
 
     steps:
-    - name: Deploy to Staging
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        port: 22
-        script: |
-          echo "Deploying to Staging"
+      - name: Deploy to Staging
+        run: |
+          # Add deployment steps to staging environment
+          echo "Deploying to staging..."
 
   deploy_production:
     runs-on: ubuntu-latest
@@ -49,13 +47,7 @@ jobs:
     if: github.event_name == 'release'
 
     steps:
-    - name: Deploy to Production
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        port: 22
-        script: |
-          echo "Deploying to Production"
-#Checking workflow
+      - name: Deploy to Production
+        run: |
+          # Add deployment steps to production environment
+          echo "Deploying to production..."
