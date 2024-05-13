@@ -1,4 +1,4 @@
-name: Calculator App CI/CD
+name: Flask App CI/CD
 
 on:
   push:
@@ -10,20 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install Dependencies
-      run: |
-        pip install -r requirements.txt
-        pip install pytest
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest  # Install pytest for running tests
 
-    - name: Run Tests
-      run: |
-        pytest
+      - name: Run Tests
+        run: |
+          pytest  # Run tests using pytest
 
-    - name: Build
-      run: |
+      - name: Build
+        run: |
+          # If there are any additional build steps for your Flask app, add them here
           echo "Building Application"
 
   deploy_staging:
@@ -32,15 +33,19 @@ jobs:
     if: github.ref == 'refs/heads/staging'
 
     steps:
-    - name: Deploy to Staging
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        port: 22
-        script: |
-          echo "Deploying to Staging"
+      - name: Deploy to Staging
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            # Replace 'your-flask-app-directory' with the directory containing your Flask app
+            cd your-flask-app-directory
+            # Restart the Flask app (replace 'app.py' with your actual app file)
+            sudo systemctl restart your-flask-app.service
+            echo "Deployed to Staging"
 
   deploy_production:
     runs-on: ubuntu-latest
@@ -48,13 +53,16 @@ jobs:
     if: github.event_name == 'release'
 
     steps:
-    - name: Deploy to Production
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        port: 22
-        script: |
-          echo "Deploying to Production"
-#Checking workflow
+      - name: Deploy to Production
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            # Replace 'your-flask-app-directory' with the directory containing your Flask app
+            cd your-flask-app-directory
+            # Restart the Flask app (replace 'app.py' with your actual app file)
+            sudo systemctl restart your-flask-app.service
+            echo "Deployed to Production"
