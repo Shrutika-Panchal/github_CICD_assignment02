@@ -42,3 +42,5 @@ while True:
     next_calculation = input("Do you want to perform another calculation? (yes/no): ")
     if next_calculation.lower() != 'yes':
         break
+
+#Checking Workflow
