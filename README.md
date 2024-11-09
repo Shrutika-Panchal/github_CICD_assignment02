@@ -1,8 +1,4 @@
-GitHub Actions CI/CD Pipeline Python App
-
-5. Documentation:
-
-   - Update the README.md file with instructions on how the GitHub Actions workflow works and how to configure the necessary secrets.
+# GitHub Actions CI/CD Pipeline Python App
 
 ## GitHub Actions Workflow
 
